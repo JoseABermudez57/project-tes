@@ -1,11 +1,11 @@
-const http = require('http');
+const express = require('express');
 
-const server = http.createServer((req, res) => {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/plain');
-    res.end('Hola mundo');
+const app = express();
+
+app.get('/', (req, res) => {
+    res.send('Hola mundo');
 });
 
-server.listen(3000, 'localhost', () => {
+app.listen(3000, () => {
     console.log('Servidor en ejecución en http://localhost:3000/');
 });
