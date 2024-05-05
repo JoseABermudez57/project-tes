@@ -1,69 +1,17 @@
+require('dotenv').config();
 const express = require('express');
+const bodyParser = require('body-parser');
+const routes = require('./routes/routes'); // Ruta al archivo de rutas
 
 const app = express();
+const port = process.env.API_PORT
 
-app.use(express.json());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-students = []
-tutors = ["Carlos Alberto Díaz Hernandez", "Jorge Luis García", "Miguel Angel Sánchez"]
-subject = ["SOA", "ENGIX", "MobileDevII", "InfoSec", "DM", "SPM", "OWEII"]
+// Usar el router de routes.js
+app.use(process.env.API_BASE_PATH, routes);
 
-
-// Tutors management guidelines
-
-// Create a tutor
-app.post('/api/v1/tutors', (req, res) => {
-    res.send('Hola mundo');
+app.listen(port, () => {
+  console.log(`Servidor iniciado en http://localhost:${port}`);
 });
-
-// Get all tutors
-app.get('/api/v1/tutors', (req, res) => {
-    res.send(tutors);
-});
-
-// Get all students of a tutor
-app.get('/api/v1/tutors/:tutor/students', (req, res) => {
-    res.send('Hola mundo');
-});
-
-
-// Students management guidelines
-
-// Create a student
-app.post('/api/v1/students', (req, res) => {
-    res.send('Hola mundo');
-});
-
-// Get all students
-app.get('/api/v1/students', (req, res) => {
-    res.send('Hola mundo');
-});
-
-// Get all subjects of a student
-app.get('/api/v1/students/:student/subjects', (req, res) => {
-    res.send('Hola mundo');
-});
-
-
-// Subjects management guidelines
-
-// Create a subject
-app.post('/api/v1/subjects', (req, res) => {
-    res.send('Hola mundo');
-});
-
-// Assign a student to a tutor
-app.post('/api/v1/tutors/:tutor/students/:student', (req, res) => {
-    res.send('Hola mundo');
-});
-
-// Assign a subject to a student
-app.post('/api/v1/students/:student/subjects/:subject', (req, res) => {
-    res.send('Hola mundo');
-});
-
-
-app.listen(3000, () => {
-    console.log('Servidor en ejecución en http://localhost:3000/');
-});
-
